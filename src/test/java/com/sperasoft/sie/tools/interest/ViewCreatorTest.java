@@ -50,18 +50,34 @@ public class ViewCreatorTest {
 
         String xmlRepresentation = viewCreator.toXml();
         out.println(xmlRepresentation);
+        xmlRepresentation = xmlRepresentation.replaceAll("\\s+", "");
 
-        Assert.assertTrue(xmlRepresentation.contains("<viewElement>"));
-        Assert.assertTrue(xmlRepresentation.contains("</viewElement>"));
-        Assert.assertTrue(xmlRepresentation.contains("<parameters>"));
-        Assert.assertTrue(xmlRepresentation.contains("</parameters>"));
+        List<String> formatVariables = new ArrayList<>();
+        formatVariables.add(NAME);
         PARAMETERS.forEach(param -> {
             param.forEach((k,v) -> {
-                Assert.assertTrue(String.format("XML should contain parameter with both key '%s' ('<name>') and value '%s' ('<value>)", k, v),
-                        xmlRepresentation.contains(String.format("<name>%s</name", k)));
-                Assert.assertTrue(String.format("XML should contain parameter with both key '%s' ('<name>') and value '%s' ('<value>)", k, v),
-                        xmlRepresentation.contains(String.format("<value>%s</value", v)));
+                formatVariables.add(k);
+                formatVariables.add(v);
             });
         });
+
+        String expectedXml = String.format(
+                "<viewElement>\n" +
+                        "  <name>%s</name>\n" +
+                        "  <parameters>\n" +
+                        "    <parameter>\n" +
+                        "      <name>%s</name>\n" +
+                        "      <value>%s</value>\n" +
+                        "    </parameter>\n" +
+                        "    <parameter>\n" +
+                        "      <name>%s</name>\n" +
+                        "      <value>%s</value>\n" +
+                        "    </parameter>\n" +
+                        "  </parameters>\n" +
+                        "</viewElement>", formatVariables.toArray()
+        ).replaceAll("\\s+", "");
+        out.println(expectedXml);
+
+        Assert.assertTrue(expectedXml.equals(xmlRepresentation));
     }
 }

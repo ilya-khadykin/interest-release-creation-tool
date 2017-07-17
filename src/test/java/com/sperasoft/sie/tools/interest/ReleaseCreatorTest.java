@@ -51,20 +51,20 @@ public class ReleaseCreatorTest {
 
         String xmlRepresentation = releaseCreator.toXml();
         out.println(xmlRepresentation);
+        xmlRepresentation = xmlRepresentation.replaceAll("\\s+", "");
 
-        Assert.assertTrue(xmlRepresentation.contains("<release>"));
-        Assert.assertTrue(xmlRepresentation.contains(
-                String.format("<name>%s</name>", NAME)));
-        Assert.assertTrue(xmlRepresentation.contains(
-                String.format("<projectName>%s</projectName>", PROJECT_NAME)));
-        Assert.assertTrue(xmlRepresentation.contains(
-                String.format("<line>%s</line>", LINE)));
-        Assert.assertTrue(xmlRepresentation.contains(
-                String.format("<startTime>%s</startTime>",
-                        DateUtils.convertDate(DATE, DateUtils.ISO_8601_24H_FULL_DATE_FORMAT))));
-        Assert.assertTrue(xmlRepresentation.contains(
-                String.format("<endTime>%s</endTime>",
-                        DateUtils.convertDate(DATE, DateUtils.ISO_8601_24H_FULL_DATE_FORMAT))));
-        Assert.assertTrue(xmlRepresentation.contains("</release>"));
+        String expectedXml = String.format(
+                "<release>\n" +
+                "  <name>%s</name>\n" +
+                "  <projectName>%s</projectName>\n" +
+                "  <line>%s</line>\n" +
+                "  <startTime>%s</startTime>\n" +
+                "  <endTime>%s</endTime>\n" +
+                "</release>", NAME, PROJECT_NAME, LINE,
+                DateUtils.convertDate(DATE, DateUtils.ISO_8601_24H_FULL_DATE_FORMAT),
+                DateUtils.convertDate(DATE, DateUtils.ISO_8601_24H_FULL_DATE_FORMAT))
+                .replaceAll("\\s+", "");
+
+        Assert.assertTrue(expectedXml.equals(xmlRepresentation));
     }
 }
