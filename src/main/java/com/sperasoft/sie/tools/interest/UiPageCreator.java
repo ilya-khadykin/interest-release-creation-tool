@@ -1,5 +1,10 @@
 package com.sperasoft.sie.tools.interest;
 
+import com.sperasoft.sie.tools.interest.converters.UiPageCreatorConverter;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -29,6 +34,7 @@ public class UiPageCreator {
         + viewName - name of corresponding View on collector
      */
 
+    private String interestBaseUrl;
     private static final String API_ENDPOINT = "/interest/api/collector/ui-page";
 
     private String name;
@@ -36,6 +42,79 @@ public class UiPageCreator {
     private String yAxis = "testScriptName";
     private String viewName;
     private String releaseName;
-    private Date startTime;
+    private ZonedDateTime startTime;
     private String title;
+
+    public UiPageCreator(String interestBaseUrl) {
+        this.interestBaseUrl = interestBaseUrl;
+    }
+
+    public String getApiUrl() {
+        return this.interestBaseUrl + UiPageCreator.API_ENDPOINT;
+    }
+
+    public String toXml() {
+        XStream xStream = new XStream(new DomDriver());
+        xStream.registerConverter(new UiPageCreatorConverter());
+        xStream.alias("uiPage", UiPageCreator.class);
+        return xStream.toXML(this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getxAxis() {
+        return xAxis;
+    }
+
+    public void setxAxis(String xAxis) {
+        this.xAxis = xAxis;
+    }
+
+    public String getyAxis() {
+        return yAxis;
+    }
+
+    public void setyAxis(String yAxis) {
+        this.yAxis = yAxis;
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setViewName(String viewName) {
+        this.viewName = viewName;
+    }
+
+    public String getReleaseName() {
+        return releaseName;
+    }
+
+    public void setReleaseName(String releaseName) {
+        this.releaseName = releaseName;
+    }
+
+    public ZonedDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(ZonedDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
 }
