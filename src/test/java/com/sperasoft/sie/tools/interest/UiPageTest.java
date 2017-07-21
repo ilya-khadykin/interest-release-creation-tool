@@ -10,14 +10,12 @@ import org.junit.Test;
 
 import java.time.ZonedDateTime;
 
-import static java.lang.System.out;
-
 /**
  * Created by Ilya K on 7/17/2017.
  */
-public class UiPageCreatorTest {
+public class UiPageTest {
 
-    private static UiPageCreator uiPageCreator;
+    private static UiPage uiPage;
 
 
     private static final String NAME = "npmt-events";
@@ -33,31 +31,31 @@ public class UiPageCreatorTest {
 
     @BeforeClass
     public static void setUp() {
-        uiPageCreator = new UiPageCreator(INTEREST_BASE_URL);
-        uiPageCreator.setName(NAME);
-        uiPageCreator.setxAxis(X_AXIS);
-        uiPageCreator.setyAxis(Y_AXIS);
-        uiPageCreator.setViewName(VIEW_NAME);
-        uiPageCreator.setReleaseName(RELEASE_NAME);
-        uiPageCreator.setTitle(TITLE);
-        uiPageCreator.setStartTime(DATE);
+        uiPage = new UiPage(INTEREST_BASE_URL);
+        uiPage.setName(NAME);
+        uiPage.setxAxis(X_AXIS);
+        uiPage.setyAxis(Y_AXIS);
+        uiPage.setViewName(VIEW_NAME);
+        uiPage.setReleaseName(RELEASE_NAME);
+        uiPage.setTitle(TITLE);
+        uiPage.setStartTime(DATE);
     }
 
     @AfterClass
     public static void tearDown() {
-        uiPageCreator = null;
+        uiPage = null;
     }
 
     @Test
     public void testGeneratedInterestApiEndpoint() {
-        out.println(uiPageCreator.getApiUrl());
-        Assert.assertTrue(uiPageCreator.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
+        out.println(uiPage.getApiUrl());
+        Assert.assertTrue(uiPage.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
     }
 
     @Test
     public void testXmlConversion() {
 
-        String xmlRepresentation = uiPageCreator.toXml();
+        String xmlRepresentation = uiPage.toXml();
         out.println(xmlRepresentation);
         xmlRepresentation = xmlRepresentation.replaceAll("\\s+", "");
 

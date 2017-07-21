@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class SummaryReportDescriptionCreator {
+public class SummaryReportDescription {
     /*
       PUT reports/summary/description/[name]
       Parameters:

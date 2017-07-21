@@ -9,14 +9,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class ReleaseCreatorTest {
+public class ReleaseTest {
 
-    private static ReleaseCreator releaseCreator;
+    private static Release release;
     private static final String NAME = "Release API Test IK";
     private static final String PROJECT_NAME = "NPMT";
     private static final String LINE = "Q1";
@@ -27,29 +26,29 @@ public class ReleaseCreatorTest {
 
     @BeforeClass
     public static void setUp() {
-        releaseCreator = new ReleaseCreator(INTEREST_BASE_URL);
-        releaseCreator.setName(NAME);
-        releaseCreator.setProjectName(PROJECT_NAME);
-        releaseCreator.setLine(LINE);
-        releaseCreator.setStartTime(DATE);
-        releaseCreator.setEndTime(DATE);
+        release = new Release(INTEREST_BASE_URL);
+        release.setName(NAME);
+        release.setProjectName(PROJECT_NAME);
+        release.setLine(LINE);
+        release.setStartTime(DATE);
+        release.setEndTime(DATE);
     }
 
     @AfterClass
     public static void tearDown() {
-        releaseCreator = null;
+        release = null;
     }
 
     @Test
     public void testGeneratedInterestApiEndpoint() {
-        out.println(releaseCreator.getApiUrl());
-        Assert.assertTrue(releaseCreator.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
+        out.println(release.getApiUrl());
+        Assert.assertTrue(release.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
     }
 
     @Test
     public void testXmlConversion() {
 
-        String xmlRepresentation = releaseCreator.toXml();
+        String xmlRepresentation = release.toXml();
         out.println(xmlRepresentation);
         xmlRepresentation = xmlRepresentation.replaceAll("\\s+", "");
 

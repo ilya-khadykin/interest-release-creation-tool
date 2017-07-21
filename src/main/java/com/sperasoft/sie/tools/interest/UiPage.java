@@ -1,16 +1,15 @@
 package com.sperasoft.sie.tools.interest;
 
-import com.sperasoft.sie.tools.interest.converters.UiPageCreatorConverter;
+import com.sperasoft.sie.tools.interest.converters.UiPageXmlConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class UiPageCreator {
+public class UiPage {
       /*
       POST collector/ui-page
       Parameters:
@@ -45,18 +44,18 @@ public class UiPageCreator {
     private ZonedDateTime startTime;
     private String title;
 
-    public UiPageCreator(String interestBaseUrl) {
+    public UiPage(String interestBaseUrl) {
         this.interestBaseUrl = interestBaseUrl;
     }
 
     public String getApiUrl() {
-        return this.interestBaseUrl + UiPageCreator.API_ENDPOINT;
+        return this.interestBaseUrl + UiPage.API_ENDPOINT;
     }
 
     public String toXml() {
         XStream xStream = new XStream(new DomDriver());
-        xStream.registerConverter(new UiPageCreatorConverter());
-        xStream.alias("uiPage", UiPageCreator.class);
+        xStream.registerConverter(new UiPageXmlConverter());
+        xStream.alias("uiPage", UiPage.class);
         return xStream.toXML(this);
     }
 

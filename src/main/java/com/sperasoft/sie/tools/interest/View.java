@@ -1,18 +1,16 @@
 package com.sperasoft.sie.tools.interest;
 
-import com.sperasoft.sie.tools.interest.converters.ViewCreatorConverter;
+import com.sperasoft.sie.tools.interest.converters.ViewXmlConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import javax.swing.text.View;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class ViewCreator {
+public class View {
     /*
       POST /collector/gui/view
       Parameters:
@@ -44,7 +42,7 @@ public class ViewCreator {
     private String name;
     private Collection<Map<String, String>> parameters;
 
-    public ViewCreator(String interestBaseUrl) {
+    public View(String interestBaseUrl) {
         this.interestBaseUrl = interestBaseUrl;
     }
 
@@ -67,12 +65,12 @@ public class ViewCreator {
 
     public String toXml() {
         XStream xStream = new XStream(new DomDriver());
-        xStream.registerConverter(new ViewCreatorConverter());
-        xStream.alias("viewElement", ViewCreator.class);
+        xStream.registerConverter(new ViewXmlConverter());
+        xStream.alias("viewElement", View.class);
         return xStream.toXML(this);
     }
 
     public String getApiUrl() {
-        return this.interestBaseUrl + ViewCreator.API_ENDPOINT;
+        return this.interestBaseUrl + View.API_ENDPOINT;
     }
 }

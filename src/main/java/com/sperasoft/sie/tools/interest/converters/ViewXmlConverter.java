@@ -1,6 +1,6 @@
 package com.sperasoft.sie.tools.interest.converters;
 
-import com.sperasoft.sie.tools.interest.ViewCreator;
+import com.sperasoft.sie.tools.interest.View;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
@@ -10,17 +10,17 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class ViewCreatorConverter implements Converter {
+public class ViewXmlConverter implements Converter {
 
     @Override
     public void marshal(Object o, HierarchicalStreamWriter writer, MarshallingContext marshallingContext) {
-        ViewCreator viewCreator = (ViewCreator) o;
+        View view = (View) o;
 
         writer.startNode("name");
-        writer.setValue(viewCreator.getName());
+        writer.setValue(view.getName());
         writer.endNode();
         writer.startNode("parameters");
-        viewCreator.getParameters().forEach( parameter -> {
+        view.getParameters().forEach(parameter -> {
             writer.startNode("parameter");
             parameter.forEach((k, v) -> {
                 writer.startNode("name");
@@ -42,6 +42,6 @@ public class ViewCreatorConverter implements Converter {
 
     @Override
     public boolean canConvert(Class aClass) {
-        return aClass.equals(ViewCreator.class);
+        return aClass.equals(View.class);
     }
 }

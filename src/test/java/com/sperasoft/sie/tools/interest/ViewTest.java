@@ -9,14 +9,12 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static java.lang.System.out;
-
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class ViewCreatorTest {
+public class ViewTest {
 
-    private static ViewCreator viewCreator;
+    private static View view;
 
     private static final String NAME = "npmt-events";
     private static final List<Map<String, String>> PARAMETERS =
@@ -29,26 +27,26 @@ public class ViewCreatorTest {
 
     @BeforeClass
     public static void setUp() {
-        viewCreator = new ViewCreator(INTEREST_BASE_URL);
-        viewCreator.setName(NAME);
-        viewCreator.setParameters(PARAMETERS);
+        view = new View(INTEREST_BASE_URL);
+        view.setName(NAME);
+        view.setParameters(PARAMETERS);
     }
 
     @AfterClass
     public static void tearDown() {
-        viewCreator = null;
+        view = null;
     }
 
     @Test
     public void testGeneratedInterestApiEndpoint() {
-        out.println(viewCreator.getApiUrl());
-        Assert.assertTrue(viewCreator.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
+        out.println(view.getApiUrl());
+        Assert.assertTrue(view.getApiUrl().equals(INTEREST_BASE_URL + API_ENDPOINT));
     }
 
     @Test
     public void testXmlConversion() {
 
-        String xmlRepresentation = viewCreator.toXml();
+        String xmlRepresentation = view.toXml();
         out.println(xmlRepresentation);
         xmlRepresentation = xmlRepresentation.replaceAll("\\s+", "");
 

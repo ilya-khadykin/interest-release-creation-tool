@@ -1,6 +1,6 @@
 package com.sperasoft.sie.tools.interest.converters;
 
-import com.sperasoft.sie.tools.interest.UiPageCreator;
+import com.sperasoft.sie.tools.interest.UiPage;
 import com.sperasoft.sie.tools.util.DateUtils;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -11,32 +11,32 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 /**
  * Created by Ilya K on 7/17/2017.
  */
-public class UiPageCreatorConverter implements Converter {
+public class UiPageXmlConverter implements Converter {
 
     @Override
     public void marshal(Object o, HierarchicalStreamWriter writer, MarshallingContext marshallingContext) {
-        UiPageCreator uiPageCreator = (UiPageCreator) o;
+        UiPage uiPage = (UiPage) o;
 
         writer.startNode("name");
-        writer.setValue(uiPageCreator.getName());
+        writer.setValue(uiPage.getName());
         writer.endNode();
         writer.startNode("xAxis");
-        writer.setValue(uiPageCreator.getxAxis());
+        writer.setValue(uiPage.getxAxis());
         writer.endNode();
         writer.startNode("yAxis");
-        writer.setValue(uiPageCreator.getyAxis());
+        writer.setValue(uiPage.getyAxis());
         writer.endNode();
         writer.startNode("viewName");
-        writer.setValue(uiPageCreator.getViewName());
+        writer.setValue(uiPage.getViewName());
         writer.endNode();
         writer.startNode("releaseName");
-        writer.setValue(uiPageCreator.getReleaseName());
+        writer.setValue(uiPage.getReleaseName());
         writer.endNode();
         writer.startNode("startTime");
-        writer.setValue(DateUtils.convertDate(uiPageCreator.getStartTime(), DateUtils.ISO_8601_24H_FULL_DATE_FORMAT));
+        writer.setValue(DateUtils.convertDate(uiPage.getStartTime(), DateUtils.ISO_8601_24H_FULL_DATE_FORMAT));
         writer.endNode();
         writer.startNode("title");
-        writer.setValue(uiPageCreator.getTitle());
+        writer.setValue(uiPage.getTitle());
         writer.endNode();
     }
 
@@ -47,6 +47,6 @@ public class UiPageCreatorConverter implements Converter {
 
     @Override
     public boolean canConvert(Class aClass) {
-        return aClass.equals(UiPageCreator.class);
+        return aClass.equals(UiPage.class);
     }
 }

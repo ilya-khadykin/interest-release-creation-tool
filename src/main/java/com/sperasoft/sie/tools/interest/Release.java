@@ -1,16 +1,15 @@
 package com.sperasoft.sie.tools.interest;
 
-import com.sperasoft.sie.tools.interest.converters.ReleaseCreatorXmlConverter;
+import com.sperasoft.sie.tools.interest.converters.ReleaseXmlConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * Created by Ilya K on 7/16/2017.
  */
-public class ReleaseCreator {
+public class Release {
     /*
        PUT interest/api/collector/release/{name}
        Parameters:
@@ -39,7 +38,7 @@ public class ReleaseCreator {
     private ZonedDateTime startTime;
     private ZonedDateTime endTime;
 
-    public ReleaseCreator(String baseUrl) {
+    public Release(String baseUrl) {
         this.interestBaseUrl = baseUrl;
     }
 
@@ -85,12 +84,12 @@ public class ReleaseCreator {
 
     public String toXml() {
         XStream xStream = new XStream(new DomDriver());
-        xStream.registerConverter(new ReleaseCreatorXmlConverter());
-        xStream.alias("release", ReleaseCreator.class);
+        xStream.registerConverter(new ReleaseXmlConverter());
+        xStream.alias("release", Release.class);
         return xStream.toXML(this);
     }
 
     public String getApiUrl() {
-        return this.interestBaseUrl + ReleaseCreator.API_ENDPOINT + name.replace(" ", "%20");
+        return this.interestBaseUrl + Release.API_ENDPOINT + name.replace(" ", "%20");
     }
 }
